@@ -446,7 +446,9 @@
         if (is(source, ReadableStream)) {
             var buffers = [];
             source.on("readable", function() {
-                buffers.push(this.read());
+                if(buf) {
+                    buffers.push(this.read());
+                }
             }).on("end", function() {
                 callback(null, Buffer.concat(buffers));
             }).on("error", callback);
